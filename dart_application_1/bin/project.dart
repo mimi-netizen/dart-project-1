@@ -7,16 +7,28 @@ class MathQuestion {
   MathQuestion({required this.question, required this.answer});
 }
 
-double getAnswer(String q) {
+double? getAnswer(String q) {
   print('Q// $q');
-  var answer = double.parse(stdin.readLineSync()!);
+  var answer = double.tryParse(stdin.readLineSync()!);
   return answer;
 }
 
 void main() {
-  var q1 = MathQuestion(question: '4 + 5', answer: 9.0);
-  var q2 = MathQuestion(question: '8 * 100', answer: 800.0);
-  var q3 = MathQuestion(question: '8 - 4', answer: 4.0);
+  var questions = [
+    MathQuestion(question: '4 + 5', answer: 9.0),
+    MathQuestion(question: '8 * 100', answer: 800.0),
+    MathQuestion(question: '8 - 4', answer: 4.0),
+  ];
 
-  var userAnswer = getAnswer(q1.question);
+  for (var item in questions) {
+    var userAnswer = getAnswer(item.question);
+    print('Your Answer is $userAnswer');
+
+    if (userAnswer == item.answer) {
+      print('Correct!');
+    } else {
+      print('Incorrect! The correct answer is ${item.answer}');
+    }
+    print('-----------------');
+  }
 }
